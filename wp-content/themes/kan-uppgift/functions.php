@@ -42,6 +42,8 @@ if ( ! function_exists( 'kan_uppgift_setup' ) ) :
 		 */
 		add_theme_support( 'post-thumbnails' );
 
+		add_image_size('book-thumbnail', 600, 200, array('center', 'top'));
+
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus( array(
 			'menu-1' => esc_html__( 'Primary', 'kan-uppgift' ),
