@@ -21,8 +21,8 @@ jQuery(function($) {
 
         var inputHeight = jSearchInput.outerHeight();
         var inputWidth = jSearchInput.outerWidth();
-        var inputPositionTop = jSearchInput.offset().top;
-        var inputPositionLeft = jSearchInput.offset().left;
+        var inputPositionTop = jSearchInput.position().top;
+        var inputPositionLeft = jSearchInput.position().left + 10;
         
         jSearchResult.css({
             'display': 'block',

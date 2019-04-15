@@ -42,4 +42,4 @@
   </div>
 </nav>
 <div id="page" class="site container">
-	<div id="content" class="site-content">
+	<div id="content" class="site-content row">

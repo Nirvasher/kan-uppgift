@@ -9,6 +9,7 @@
 
 get_header();
 ?>
+    <div class="col-8">
     <form action="">
         <div class="form-row">
             <div class="form-group col-md-10">
@@ -56,6 +57,7 @@ get_header();
 
 		</main><!-- #main -->
 	</div><!-- #primary -->
+    </div>
 
 <?php
 get_sidebar();
