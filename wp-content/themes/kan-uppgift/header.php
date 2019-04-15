@@ -28,16 +28,18 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <?php
-			wp_nav_menu( array(
-				'theme_location' => 'menu-1',
-				'menu_id'        => 'primary-menu',
-			) );
-			?>
-			<?php
-			get_search_form(true);
-			?>
+	wp_nav_menu(array(
+		'menu'              => 'primary-menu',
+		'theme_location'    => 'menu-1',
+		'depth'             => 5,
+		'container'         => 'div',
+		'container_class'   => 'collapse navbar-collapse',
+		'menu_class'        => 'navbar-nav mr-auto',
+		'fallback_cb'       => 'wp_bootstrap_navwalker::fallback',
+		'walker'            => new wp_bootstrap_navwalker())
+	);
+	?>
   </div>
-	</div>
 </nav>
 <div id="page" class="site container">
 	<div id="content" class="site-content">
