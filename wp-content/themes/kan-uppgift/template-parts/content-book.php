@@ -29,20 +29,30 @@
 		<?php endif; ?>
 	</header><!-- .entry-header -->
 
+    <?php if (is_singular()) {
+        kan_uppgift_post_thumbnail();
+    } else {
+        the_post_thumbnail('book-thumbnail');
+    } ?>
+
 	<div class="entry-content">
 		<?php
-		the_content( sprintf(
-			wp_kses(
-				/* translators: %s: Name of current post. Only visible to screen readers */
-				__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'kan-uppgift' ),
-				array(
-					'span' => array(
-						'class' => array(),
-					),
-				)
-			),
-			get_the_title()
-		) );
+        if (is_singular()) {
+            the_content();
+        } else {
+            // echo wp_trim_words( get_the_content(), 75, '...' );
+            $content = get_the_content();
+            $content = strip_tags($content);
+
+            if (strlen($content) > 70) {
+                echo substr($content, 0, 75).'...';
+            } else {
+                echo get_the_content();
+            }
+            
+            // $theContent = get_the_content();
+            // echo substr($theContent, 0, 75);
+        }
 
 		wp_link_pages( array(
 			'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'kan-uppgift' ),
