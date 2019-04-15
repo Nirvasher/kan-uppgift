@@ -158,3 +158,51 @@ require get_template_directory() . '/inc/customizer.php';
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
+
+add_action('wp_enqueue_scripts', 'kan_include_enqueues');
+
+function kan_include_enqueues() {
+	wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/css/bootstrap.min.css',false,'1.0','all');
+
+	// wp_localize_script('ajax-search', 'myAjax', array('ajaxurl' => admin_url('admin-ajax.php')));
+
+	wp_enqueue_script( 'kan-script', get_template_directory_uri() . '/js/app.js', array ( 'jquery' ), 1.0, true);
+
+	wp_localize_script('kan-script', 'AjaxSearch', array(
+		'ajaxurl' => admin_url('admin-ajax.php')
+    ));
+}
+
+/**
+ * Solution from stackoverflow.
+ * https://stackoverflow.com/a/15040848
+ */
+add_filter('pre_get_posts', 'modify_book_query');
+
+function modify_book_query( $wp_query ) {
+    if( $wp_query->query_vars['post_type'] != 'book' ) return;
+    $wp_query->query_vars['posts_per_page'] = 3;
+}
+
+add_action('wp_ajax_load_search_results', 'load_search_results');
+add_action('wp_ajax_nopriv_load_search_results', 'load_search_results');
+
+function load_search_results() {
+	$query = $_POST['query'];
+    
+    $args = array(
+        'post_type' => 'book',
+        'post_status' => 'publish',
+        's' => $query
+    );
+	$search = new WP_Query( $args );
+	
+    if( $search->have_posts() ) :
+        while ($search->have_posts()): $search->the_post(); ?>
+			<a href="<?php echo esc_url( post_permalink() ); ?>"><?php the_title();?></a><br>
+        <?php endwhile;
+        wp_reset_postdata();  
+    endif;
+
+    die();
+}
