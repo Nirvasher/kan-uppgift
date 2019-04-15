@@ -195,14 +195,22 @@ function load_search_results() {
         'post_status' => 'publish',
         's' => $query
     );
-	$search = new WP_Query( $args );
+	$search = new WP_Query($args);
 	
-    if( $search->have_posts() ) :
-        while ($search->have_posts()): $search->the_post(); ?>
-			<a href="<?php echo esc_url( post_permalink() ); ?>"><?php the_title();?></a><br>
-        <?php endwhile;
-        wp_reset_postdata();  
-    endif;
+	/**
+	 * Original solution found here:
+	 * https://wordpress.stackexchange.com/a/240143
+	 */
+	if($search->have_posts()) {
+		while ($search->have_posts()) {
+			$search->the_post();
+			$getUrl = esc_url(post_permalink());
+			$getTitle = get_the_title();
+
+			echo "<a href=\"".$getUrl."\">".$getTitle."</a><br>";	
+		} 
+		wp_reset_postdata();
+	}
 
     die();
 }
