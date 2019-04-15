@@ -21,38 +21,23 @@
 </head>
 
 <body <?php body_class(); ?>>
-<div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'kan-uppgift' ); ?></a>
-
-	<header id="masthead" class="site-header">
-		<div class="site-branding">
-			<?php
-			the_custom_logo();
-			if ( is_front_page() && is_home() ) :
-				?>
-				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-				<?php
-			else :
-				?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-				<?php
-			endif;
-			$kan_uppgift_description = get_bloginfo( 'description', 'display' );
-			if ( $kan_uppgift_description || is_customize_preview() ) :
-				?>
-				<p class="site-description"><?php echo $kan_uppgift_description; /* WPCS: xss ok. */ ?></p>
-			<?php endif; ?>
-		</div><!-- .site-branding -->
-
-		<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'kan-uppgift' ); ?></button>
-			<?php
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<div class="container">
+  <a class="navbar-brand" href="#"><?php bloginfo( 'name' ); ?></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <?php
 			wp_nav_menu( array(
 				'theme_location' => 'menu-1',
 				'menu_id'        => 'primary-menu',
 			) );
 			?>
-		</nav><!-- #site-navigation -->
-	</header><!-- #masthead -->
-
+			<?php
+			get_search_form(true);
+			?>
+  </div>
+	</div>
+</nav>
+<div id="page" class="site container">
 	<div id="content" class="site-content">
